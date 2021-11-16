@@ -49,5 +49,6 @@ TEST_CASE("test_task_02")
                 break;
         }
         CHECK(leaks.empty());
+        CHECK(count == 500);
     }
 }

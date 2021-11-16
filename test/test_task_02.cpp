@@ -7,15 +7,15 @@
 
 static std::list<void *> leaks;
 static std::mutex mtx;
-static std::atomic<int> count;
 
 class TestPacket : public instar::Work
 {
 public:
+    TestPacket(std::atomic<int> &count) : count_(count) {}
     void process() override
     {
         instar::Work::process();
-        count++;
+        count_++;
     }
 
     void *operator new(std::size_t size)
@@ -32,13 +32,21 @@ public:
         leaks.remove(p);
         ::operator delete(p);
     }
+
+private:
+    std::atomic<int> &count_;
 };
 
 TEST_CASE("test_task_02")
 {
     {
         instar::Dispatcher dispatcher;
-        dispatcher.dispatch(new TestPacket);
+        std::atomic<int> counta(0);
+        dispatcher.dispatch(new TestPacket(counta));
+        std::atomic<int> countb(0);
+        dispatcher.dispatch(new TestPacket(countb));
+        std::atomic<int> countc(0);
+        dispatcher.dispatch(new TestPacket(countc));
 
         // Wait until all packets are freed or timeout is reached
         for (auto _ = 50; _--;)
@@ -48,7 +56,21 @@ TEST_CASE("test_task_02")
             if (leaks.empty())
                 break;
         }
-        CHECK(leaks.empty());
-        CHECK(count == 500);
+        {
+            INFO("Memory must be freed")
+            CHECK(leaks.empty());
+        }
+        {
+            INFO("Packet::process must run 500 times")
+            CHECK(counta.load() == 500);
+        }
+        {
+            INFO("Packet::process must run 500 times")
+            CHECK(countb.load() == 500);
+        }
+        {
+            INFO("Packet::process must run 500 times")
+            CHECK(countc.load() == 500);
+        }
     }
 }

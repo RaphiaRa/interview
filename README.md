@@ -6,7 +6,7 @@
 
 ### Build Tests
 ``` bash
-git submodule init
+git submodule update --init
 mkdir build; cd build
 cmake ..
 make

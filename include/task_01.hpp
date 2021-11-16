@@ -5,9 +5,6 @@
 
 #ifndef INSTAR_TASK_01_HPP
 #define INSTAR_TASK_01_HPP
-#include <vector>
-#include <iterator>
-#include <cassert>
 namespace instar
 {
     /** pack

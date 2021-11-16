@@ -12,7 +12,8 @@ namespace instar
 {
     /** pack
      *@brief Packs a range of k integers, where each int is in the range [0,15],
-     * into a range of k/2 chars (Thus reducing the necesary memory space)
+     * into a range of k/2 chars (Thus reducing the necessary memory space)
+     *@return Output iterator to the element in the destination range, one past the last element written.
      *@remark You can assume that k is even
      * Example 1:
      * std::vector<int> in = {3, 10};
@@ -35,6 +36,7 @@ namespace instar
      * std::vector<int> unpacked;
      * unpack(packed.begin(), packed.end(), std::back_insert_iterator<std::vector<char>>(unpacked));
      * // now, in == unpacked
+     *@return Output iterator to the element in the destination range, one past the last element written.
      */
     template <class InIter, class OutIter>
     OutIter unpack(InIter begin, InIter end, OutIter out)

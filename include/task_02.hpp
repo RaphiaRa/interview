@@ -16,7 +16,7 @@ namespace instar
     {
     public:
         virtual ~Work() = default;
-        void process()
+        virtual void process()
         {
             // sleep to simulate some blocking work for 0.1 - 0.5 second
             int m = rand() % 400;
@@ -38,7 +38,7 @@ namespace instar
             /** dispatch should be non blocking, don't wait for threads to return **/
             for (auto _ = 500; _--;)
             {
-                std::thread([pwork, &d]()
+                std::thread([pwork]()
                             { pwork->process(); })
                     .detach();
             }

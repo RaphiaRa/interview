@@ -3,13 +3,21 @@
 #include <cstdlib>
 #include <list>
 #include <mutex>
+#include <atomic>
 
 static std::list<void *> leaks;
 static std::mutex mtx;
+static std::atomic<int> count;
 
-class TestPacket : public instar::Packet
+class TestPacket : public instar::Work
 {
 public:
+    void process() override
+    {
+        instar::Work::process();
+        count++;
+    }
+
     void *operator new(std::size_t size)
     {
         std::lock_guard<std::mutex> lk(mtx);
@@ -33,7 +41,7 @@ TEST_CASE("test_task_02")
         dispatcher.dispatch(new TestPacket);
 
         // Wait until all packets are freed or timeout is reached
-        for(auto _ = 50; _--;) 
+        for (auto _ = 50; _--;)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
             std::lock_guard<std::mutex> lk(mtx);

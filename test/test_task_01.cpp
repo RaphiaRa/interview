@@ -9,7 +9,8 @@ TEST_CASE("test_task_01")
         std::vector<int> input = {1, 2};
         std::vector<char> packed;
         std::vector<int> unpacked;
-        instar::pack(input.begin(), input.end(), std::back_insert_iterator<std::vector<char>>(packed));
+        auto last = instar::pack(input.begin(), input.end(), std::back_insert_iterator<std::vector<char>>(packed));
+        
         CHECK(packed.size() == 1);
         instar::unpack(packed.begin(), packed.end(), std::back_insert_iterator<std::vector<int>>(unpacked));
         CHECK(unpacked == input);

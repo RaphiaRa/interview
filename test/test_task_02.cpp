@@ -48,17 +48,12 @@ TEST_CASE("test_task_02")
         std::atomic<int> countc(0);
         dispatcher.dispatch(new TestPacket(countc));
 
-        // Wait until all packets are freed or timeout is reached
-        for (auto _ = 50; _--;)
+        // Wait until process was called 500 times, or timeout was reached
+        for (auto _ = 600; _--;)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
-            std::lock_guard<std::mutex> lk(mtx);
-            if (leaks.empty())
+            if (counta.load() == 500 && countb.load() == 500 && countc.load() == 500)
                 break;
-        }
-        {
-            INFO("Memory must be freed")
-            CHECK(leaks.empty());
         }
         {
             INFO("Packet::process must run 500 times")
@@ -71,6 +66,10 @@ TEST_CASE("test_task_02")
         {
             INFO("Packet::process must run 500 times")
             CHECK(countc.load() == 500);
+        }
+        {
+            INFO("Memory must be freed")
+            CHECK(leaks.empty());
         }
     }
 }

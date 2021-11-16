@@ -7,6 +7,7 @@ add_library(${LIB_NAME} INTERFACE)
 target_include_directories(${LIB_NAME} INTERFACE include/) 
 
 if (NOT DISABLE_TESTS)
+    find_package(Threads REQUIRED)
     add_subdirectory(external/Catch2)
     add_executable(${LIB_NAME}-tests
         test/test_main.cpp
@@ -16,6 +17,7 @@ if (NOT DISABLE_TESTS)
     )
     target_link_libraries(${LIB_NAME}-tests
         Catch2::Catch2
+        Threads::Threads
         Interview
     )
 endif()

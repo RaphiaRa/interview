@@ -16,7 +16,6 @@ namespace instar
     {
     public:
         virtual ~Work() = default;
-        using Pointer = Work *;
         void process()
         {
             // sleep to simulate some blocking work for 0.1 - 0.5 second
@@ -34,7 +33,7 @@ namespace instar
          */
         void dispatch(Work *p)
         {
-            auto pwork = Work::Pointer(p);
+            auto pwork = p;
 
             /** dispatch should be non blocking, don't wait for threads to return **/
             for (auto _ = 500; _--;)

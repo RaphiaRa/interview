@@ -20,14 +20,14 @@ namespace instar
         std::string msg() const { return "My name is Base"; }
     };
 
-    /** Todo **/
     class Apple : public Base
     {
+        /** Todo **/
     };
 
-     /** Todo **/  
     class Banana : public Base
     {
+        /** Todo **/  
     };
 
     /** Don't change anything from this line **/

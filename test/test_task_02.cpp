@@ -2,14 +2,17 @@
 #include <task_02.hpp>
 #include <cstdlib>
 #include <list>
+#include <mutex>
 
 static std::list<void *> leaks;
+static std::mutex mtx;
 
 class TestPacket : public instar::Packet
 {
 public:
     void *operator new(std::size_t size)
     {
+        std::lock_guard<std::mutex> lk(mtx);
         void *p = ::operator new(size);
         leaks.push_back(p);
         return p;
@@ -17,6 +20,7 @@ public:
 
     void operator delete(void *p)
     {
+        std::lock_guard<std::mutex> lk(mtx);
         leaks.remove(p);
         ::operator delete(p);
     }
@@ -32,6 +36,7 @@ TEST_CASE("test_task_02")
         for(auto _ = 50; _--;) 
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            std::lock_guard<std::mutex> lk(mtx);
             if (leaks.empty())
                 break;
         }

@@ -12,7 +12,7 @@ namespace instar
 {
     /** pack
      *@brief Packs a range of k integers, where each int is in the range [0,15],
-     * into a range k/2 chars (Thus reducing the necesary memory space)
+     * into a range of k/2 chars (Thus reducing the necesary memory space)
      *@remark You can assume that k is even
      * Example 1:
      * std::vector<int> in = {3, 10};

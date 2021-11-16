@@ -15,7 +15,7 @@ namespace instar
      * Example 1:
      * std::vector<int> in = {3, 10};
      * std::vector<char> packed;
-     * pack(in.begin(), in.end(), std::back_insert_iterator<std::vector<char>>(packet));
+     * pack(in.begin(), in.end(), std::back_insert_iterator<std::vector<char>>(packed));
      * // now, packed.size() == 1;
      */
     template <class InIter, class OutIter>
@@ -29,7 +29,7 @@ namespace instar
      * Example 2:
      * std::vector<int> in = {3, 10};
      * std::vector<char> packed;
-     * pack(in.begin(), in.end(), std::back_insert_iterator<std::vector<char>>(packet));
+     * pack(in.begin(), in.end(), std::back_insert_iterator<std::vector<char>>(packed));
      * std::vector<int> unpacked;
      * unpack(packed.begin(), packed.end(), std::back_insert_iterator<std::vector<char>>(unpacked));
      * // now, in == unpacked

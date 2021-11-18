@@ -14,6 +14,13 @@ make
 ```
 #### On Windows
 - Visual Studio 2017+ has built-in support for CMake Projects.
+- For older Visual Studio Versions, cmake should create appropriate Visual Studio project files.
+``` bash
+git clone https://github.com/RaphiaRa/interview.git
+mkdir interview/build; cd interview/build
+git submodule update --init
+cmake ..
+```
 
 ### Run Tests
 ``` bash

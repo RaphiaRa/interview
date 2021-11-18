@@ -4,8 +4,10 @@
 - A C++14 capable compiler
 - git
 
-### Build Tests
+### Clone & Build Tests
 ``` bash
+git clone git@gitlab.instar.de:Raphael/cpp-interview.git
+mkdir cpp-interview/build; cd cpp-interview/build
 git submodule update --init
 mkdir build; cd build
 cmake ..

@@ -6,8 +6,8 @@
 
 ### Clone & Build Tests
 ``` bash
-git clone bla
-mkdir cpp-interview/build; cd cpp-interview/build
+git clone https://github.com/RaphiaRa/interview.git
+mkdir interview/build; cd interview/build
 git submodule update --init
 cmake ..
 make

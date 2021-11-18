@@ -6,7 +6,7 @@
 
 ### Clone & Build Tests
 ``` bash
-git clone git@gitlab.instar.de:Raphael/cpp-interview.git
+git clone bla
 mkdir cpp-interview/build; cd cpp-interview/build
 git submodule update --init
 cmake ..

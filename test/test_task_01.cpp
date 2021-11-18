@@ -2,6 +2,7 @@
 #include <task_01.hpp>
 #include <vector>
 #include <cstdlib>
+#include <iterator>
 
 TEST_CASE("test_task_01")
 {
